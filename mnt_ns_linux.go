@@ -41,7 +41,7 @@ func SwitchMountNs(pid int) {
 }
 
 func getMountNs(pid int) int {
-	fname := fmt.Sprintf("/proc/%d/ns/mnt")
+	fname := fmt.Sprintf("/proc/%d/ns/mnt", pid)
 	nss, err := os.Readlink(fname)
 
 	// probably permission denied or namespaces not compiled into the kernel
@@ -63,7 +63,7 @@ func getMountNs(pid int) int {
 }
 
 func setns(fd int) error {
-	ret, _, err := unix.Syscall(SYS_SETNS, uintptr(uint(fd)), uintptr(CLONE_NEWNS), 0)
+	ret, _, err := unix.Syscall(unix.SYS_SETNS, uintptr(uint(fd)), uintptr(CLONE_NEWNS), 0)
 	if ret != 0 {
 		return fmt.Errorf("syscall SYS_SETNS failed: %v", err)
 	}

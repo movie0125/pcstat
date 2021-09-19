@@ -39,7 +39,7 @@ var (
 	pidFlag                                     int
 	terseFlag, nohdrFlag, jsonFlag, unicodeFlag bool
 	plainFlag, ppsFlag, histoFlag, bnameFlag    bool
-	sortFlag bool
+	sortFlag                                    bool
 )
 
 func init() {
